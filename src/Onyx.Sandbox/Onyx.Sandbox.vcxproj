@@ -81,6 +81,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Onyx\Onyx.vcxproj">
+      <Project>{7c5c4f5d-6bf3-47b7-9722-d75ee81f532c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
