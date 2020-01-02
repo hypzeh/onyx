@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9913C18D-EDEE-4821-B9D3-22EA38BEDA6F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Onyx", "src\Onyx\Onyx.vcxproj", "{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{49BCCF70-492F-4DF0-98D5-11DA12B0A198}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "samples\Sandbox\Sandbox.vcxproj", "{4D333F27-6399-45B2-87CB-04476893AEAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C}.Debug|x64.ActiveCfg = Debug|x64
+		{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C}.Debug|x64.Build.0 = Debug|x64
+		{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C}.Release|x64.ActiveCfg = Release|x64
+		{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C}.Release|x64.Build.0 = Release|x64
+		{4D333F27-6399-45B2-87CB-04476893AEAE}.Debug|x64.ActiveCfg = Debug|x64
+		{4D333F27-6399-45B2-87CB-04476893AEAE}.Debug|x64.Build.0 = Debug|x64
+		{4D333F27-6399-45B2-87CB-04476893AEAE}.Release|x64.ActiveCfg = Release|x64
+		{4D333F27-6399-45B2-87CB-04476893AEAE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C5C4F5D-6BF3-47B7-9722-D75EE81F532C} = {9913C18D-EDEE-4821-B9D3-22EA38BEDA6F}
+		{4D333F27-6399-45B2-87CB-04476893AEAE} = {49BCCF70-492F-4DF0-98D5-11DA12B0A198}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD2C31E4-C515-4E49-A86C-1518CC88F8AC}
+	EndGlobalSection
+EndGlobal
