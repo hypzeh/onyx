@@ -27,6 +27,9 @@
     <ClInclude Include="Diagnostics\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="System\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
