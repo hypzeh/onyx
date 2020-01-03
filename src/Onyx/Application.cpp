@@ -15,7 +15,7 @@ namespace Onyx
 
 	void Application::Run()
 	{
-		std::cout << "Onyx::Run()\n";
+		ONYX_LOG_TRACE("Onyx Engine.");
 		std::cin.get();
 	}
 }
