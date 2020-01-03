@@ -99,6 +99,7 @@
     <ClInclude Include="Onyx.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="System\Window.h" />
+    <ClInclude Include="System\WindowProperties.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
