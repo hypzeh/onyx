@@ -1,5 +1,10 @@
 #pragma once
+#include "pch.h"
 
-class WindowsWindow
+namespace Onyx::System
 {
-};
+	class WindowsWindow : public Window
+	{
+
+	};
+}

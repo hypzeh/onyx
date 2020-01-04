@@ -5,3 +5,4 @@
 #include <iostream>
 
 #include "Diagnostics\Logger.h"
+#include "System\Window.h"

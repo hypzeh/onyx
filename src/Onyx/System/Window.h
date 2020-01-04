@@ -1,9 +1,13 @@
 #pragma once
 #include "pch.h"
-#include "WindowProperties.h"
 
 namespace Onyx::System
 {
+	struct WindowProperties
+	{
+		std::string Title;
+	};
+
 	class Window
 	{
 	public:

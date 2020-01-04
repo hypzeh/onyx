@@ -33,9 +33,6 @@
     <ClInclude Include="System\WindowsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="System\WindowProperties.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
