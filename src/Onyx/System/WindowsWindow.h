@@ -7,5 +7,11 @@ namespace Onyx::System
 	{
 	public:
 		WindowsWindow(const WindowProperties& properties);
+		virtual ~WindowsWindow();
+	private:
+		virtual void Initialise(const WindowProperties& properties);
+		virtual void Shutdown();
+	private:
+		HWND m_window;
 	};
 }
