@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "Application.h"
 
-namespace Onyx
+namespace Onyx::System
 {
 	Application::Application()
 	{
-
+		m_Window = Window::Create(WindowProperties());
 	}
 
 	Application::~Application()

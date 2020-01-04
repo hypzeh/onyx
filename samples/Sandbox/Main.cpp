@@ -2,6 +2,6 @@
 
 int main()
 {
-	auto* application = &Onyx::Application();
+	auto* application = &Onyx::System::Application();
 	application->Run();
 }
