@@ -8,6 +8,7 @@ namespace Onyx::System
 	public:
 		WindowsWindow(const WindowProperties& properties);
 		virtual ~WindowsWindow();
+		void OnUpdate() override;
 	private:
 		virtual void Initialise(const WindowProperties& properties);
 		virtual void Shutdown();

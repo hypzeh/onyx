@@ -12,5 +12,7 @@ namespace Onyx::System
 	{
 	public:
 		static std::unique_ptr<Window> Create(const WindowProperties& properties);
+
+		virtual void OnUpdate() = 0;
 	};
 }

@@ -25,6 +25,15 @@ namespace Onyx::System
 		Shutdown();
 	}
 
+	void WindowsWindow::OnUpdate()
+	{
+		MSG msg;
+		if (GetMessage(&msg, NULL, 0, 0) > 0) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
 	void WindowsWindow::Initialise(const WindowProperties& properties)
 	{
 		WNDCLASSEXW wc;

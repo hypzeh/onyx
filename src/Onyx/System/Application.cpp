@@ -16,6 +16,9 @@ namespace Onyx::System
 	void Application::Run()
 	{
 		ONYX_LOG_TRACE("Onyx Engine.");
-		std::cin.get();
+		while (true)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }
