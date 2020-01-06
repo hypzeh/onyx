@@ -6,6 +6,12 @@ namespace Onyx::System
 	struct WindowProperties
 	{
 		std::string Title;
+
+		WindowProperties(std::string title)
+			: Title(title)
+		{
+
+		}
 	};
 
 	class Window

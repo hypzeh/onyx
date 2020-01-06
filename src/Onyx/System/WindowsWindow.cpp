@@ -52,10 +52,11 @@ namespace Onyx::System
 			return;
 		}
 
+		auto wTitle = std::wstring(properties.Title.begin(), properties.Title.end());
 		m_window = CreateWindowExW(
 			WS_EX_APPWINDOW,
 			NAME,
-			NAME,
+			wTitle.c_str(),
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
 			CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720,
 			NULL,
