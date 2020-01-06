@@ -71,6 +71,8 @@ namespace Onyx::System
 		}
 
 		ShowWindow(m_window, SW_SHOWNA);
+		SetForegroundWindow(m_window);
+		SetFocus(m_window);
 	}
 
 	void WindowsWindow::Shutdown()
