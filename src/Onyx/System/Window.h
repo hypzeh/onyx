@@ -6,9 +6,11 @@ namespace Onyx::System
 	struct WindowProperties
 	{
 		std::string Title;
+		unsigned int Width;
+		unsigned int Height;
 
-		WindowProperties(std::string title)
-			: Title(title)
+		WindowProperties(std::string title, unsigned int width, unsigned int height)
+			: Title(title), Width(width), Height(height)
 		{
 
 		}
