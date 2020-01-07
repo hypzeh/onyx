@@ -39,12 +39,12 @@ namespace Onyx::System
 
 		WNDCLASSEXW wc;
 		ZeroMemory(&wc, sizeof(wc));
-		wc.cbSize = sizeof(wc);
-		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wc.lpfnWndProc = (WNDPROC)windowProc;
-		wc.hInstance = GetModuleHandleW(nullptr);
-		wc.hCursor = LoadCursorW(nullptr, IDC_ARROW);
-		wc.lpszClassName = m_windowID;
+		wc.cbSize			= sizeof(wc);
+		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+		wc.lpfnWndProc		= (WNDPROC)windowProc;
+		wc.hInstance		= GetModuleHandleW(nullptr);
+		wc.hCursor			= LoadCursorW(nullptr, IDC_ARROW);
+		wc.lpszClassName	= m_windowID;
 
 		if (!RegisterClassExW(&wc))
 		{
