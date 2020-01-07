@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "Application.h"
 
-namespace Onyx
+namespace Onyx::System
 {
 	Application::Application()
 	{
-
+		m_Window = Window::Create(WindowProperties("ONYX_WINDOW", "Onyx Engine", 1280, 720));
 	}
 
 	Application::~Application()
@@ -16,6 +16,9 @@ namespace Onyx
 	void Application::Run()
 	{
 		ONYX_LOG_TRACE("Onyx Engine.");
-		std::cin.get();
+		while (true)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }

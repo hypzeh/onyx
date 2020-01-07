@@ -1,6 +1,7 @@
 #pragma once
+#include "pch.h"
 
-namespace Onyx
+namespace Onyx::System
 {
 	class Application
 	{
@@ -8,5 +9,7 @@ namespace Onyx
 		Application();
 		~Application();
 		void Run();
+	private:
+		std::unique_ptr<Window> m_Window;
 	};
 }
