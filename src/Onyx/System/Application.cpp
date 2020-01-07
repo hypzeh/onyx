@@ -5,7 +5,7 @@ namespace Onyx::System
 {
 	Application::Application()
 	{
-		m_Window = Window::Create(WindowProperties("Onyx Engine", 1280, 720));
+		m_Window = Window::Create(WindowProperties("ONYX_WINDOW", "Onyx Engine", 1280, 720));
 	}
 
 	Application::~Application()

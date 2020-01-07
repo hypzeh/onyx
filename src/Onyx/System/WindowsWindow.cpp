@@ -3,8 +3,6 @@
 
 namespace Onyx::System
 {
-	static auto NAME = L"Test";
-
 	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		return DefWindowProcW(hWnd, uMsg, wParam, lParam);
@@ -28,7 +26,7 @@ namespace Onyx::System
 	void WindowsWindow::OnUpdate()
 	{
 		MSG msg;
-		if (GetMessage(&msg, NULL, 0, 0) > 0) {
+		if (GetMessage(&msg, nullptr, 0, 0) > 0) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
@@ -36,15 +34,17 @@ namespace Onyx::System
 
 	void WindowsWindow::Initialise(const WindowProperties& properties)
 	{
-		WNDCLASSEXW wc;
+		auto id = std::wstring(properties.Identifier.begin(), properties.Identifier.end());
+		m_windowID = id.c_str();
 
+		WNDCLASSEXW wc;
 		ZeroMemory(&wc, sizeof(wc));
 		wc.cbSize = sizeof(wc);
 		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		wc.lpfnWndProc = (WNDPROC)windowProc;
-		wc.hInstance = GetModuleHandleW(NULL);
-		wc.hCursor = LoadCursorW(NULL, IDC_ARROW);
-		wc.lpszClassName = NAME;
+		wc.hInstance = GetModuleHandleW(nullptr);
+		wc.hCursor = LoadCursorW(nullptr, IDC_ARROW);
+		wc.lpszClassName = m_windowID;
 
 		if (!RegisterClassExW(&wc))
 		{
@@ -52,20 +52,20 @@ namespace Onyx::System
 			return;
 		}
 
-		auto wTitle = std::wstring(properties.Title.begin(), properties.Title.end());
+		auto name = std::wstring(properties.Title.begin(), properties.Title.end());;
 		m_window = CreateWindowExW(
 			WS_EX_APPWINDOW,
-			NAME,
-			wTitle.c_str(),
+			m_windowID,
+			name.c_str(),
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
 			properties.Width,
 			properties.Height,
-			NULL,
-			NULL,
-			GetModuleHandleW(NULL),
-			NULL);
+			nullptr,
+			nullptr,
+			GetModuleHandleW(nullptr),
+			nullptr);
 
 		if (!m_window)
 		{
@@ -80,6 +80,6 @@ namespace Onyx::System
 
 	void WindowsWindow::Shutdown()
 	{
-		UnregisterClassW(NAME, GetModuleHandleW(NULL));
+		UnregisterClassW(m_windowID, GetModuleHandleW(nullptr));
 	}
 }

@@ -14,5 +14,6 @@ namespace Onyx::System
 		virtual void Shutdown();
 	private:
 		HWND m_window;
+		LPCWSTR m_windowID;
 	};
 }

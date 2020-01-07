@@ -5,12 +5,13 @@ namespace Onyx::System
 {
 	struct WindowProperties
 	{
+		std::string Identifier;
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProperties(std::string title, unsigned int width, unsigned int height)
-			: Title(title), Width(width), Height(height)
+		WindowProperties(std::string identifier, std::string title, unsigned int width, unsigned int height)
+			: Identifier(identifier), Title(title), Width(width), Height(height)
 		{
 
 		}
