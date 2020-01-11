@@ -5,18 +5,15 @@ namespace Onyx::System
 {
 	struct WindowProperties
 	{
-		std::string ID;
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
 
 		WindowProperties(
-			const std::string& id,
 			const std::string& title	= "ONYX_ENGINE",
 			unsigned int width			= 1280,
 			unsigned int height			= 720)
-			:	ID(id),
-				Title(title),
+			:	Title(title),
 				Width(width),
 				Height(height)
 		{}
@@ -25,7 +22,9 @@ namespace Onyx::System
 	class Window
 	{
 	public:
-		static std::unique_ptr<Window> Create(const WindowProperties& properties);
+		static std::unique_ptr<Window> Create(const WindowProperties& properties = WindowProperties());
+
+		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
 	};

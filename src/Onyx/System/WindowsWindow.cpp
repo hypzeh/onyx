@@ -14,8 +14,9 @@ namespace Onyx::System
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
+		: m_Properties(properties)
 	{
-		Initialise(properties);
+		Initialise();
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -32,11 +33,8 @@ namespace Onyx::System
 		}
 	}
 
-	void WindowsWindow::Initialise(const WindowProperties& properties)
+	void WindowsWindow::Initialise()
 	{
-		auto id = std::wstring(properties.ID.begin(), properties.ID.end());
-		m_windowID = id.c_str();
-
 		WNDCLASSEXW wc;
 		ZeroMemory(&wc, sizeof(wc));
 		wc.cbSize			= sizeof(wc);
@@ -44,7 +42,7 @@ namespace Onyx::System
 		wc.lpfnWndProc		= (WNDPROC)windowProc;
 		wc.hInstance		= GetModuleHandleW(nullptr);
 		wc.hCursor			= LoadCursorW(nullptr, IDC_ARROW);
-		wc.lpszClassName	= m_windowID;
+		wc.lpszClassName	= L"ONYX_WINDOW";
 
 		if (!RegisterClassExW(&wc))
 		{
@@ -52,34 +50,34 @@ namespace Onyx::System
 			return;
 		}
 
-		auto name = std::wstring(properties.Title.begin(), properties.Title.end());;
-		m_window = CreateWindowExW(
+		auto title = std::wstring(m_Properties.Title.begin(), m_Properties.Title.end());;
+		m_Handle = CreateWindowExW(
 			WS_EX_APPWINDOW,
-			m_windowID,
-			name.c_str(),
+			L"ONYX_WINDOW",
+			title.c_str(),
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
-			properties.Width,
-			properties.Height,
+			m_Properties.Width,
+			m_Properties.Height,
 			nullptr,
 			nullptr,
 			GetModuleHandleW(nullptr),
 			nullptr);
 
-		if (!m_window)
+		if (!m_Handle)
 		{
 			ONYX_LOG_ERROR("Could not create window");
 			return;
 		}
 
-		ShowWindow(m_window, SW_SHOWNA);
-		SetForegroundWindow(m_window);
-		SetFocus(m_window);
+		ShowWindow(m_Handle, SW_SHOWNA);
+		SetForegroundWindow(m_Handle);
+		SetFocus(m_Handle);
 	}
 
 	void WindowsWindow::Shutdown()
 	{
-		UnregisterClassW(m_windowID, GetModuleHandleW(nullptr));
+		UnregisterClassW(L"ONYX_WINDOW", GetModuleHandleW(nullptr));
 	}
 }
