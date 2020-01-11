@@ -34,7 +34,7 @@ namespace Onyx::System
 
 	void WindowsWindow::Initialise(const WindowProperties& properties)
 	{
-		auto id = std::wstring(properties.Identifier.begin(), properties.Identifier.end());
+		auto id = std::wstring(properties.ID.begin(), properties.ID.end());
 		m_windowID = id.c_str();
 
 		WNDCLASSEXW wc;
