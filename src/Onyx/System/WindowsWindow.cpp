@@ -3,7 +3,7 @@
 
 namespace Onyx::System
 {
-	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 	}
@@ -24,6 +24,12 @@ namespace Onyx::System
 		Shutdown();
 	}
 
+	void WindowsWindow::SetTitle(const std::string& title)
+	{
+		m_Properties.Title = title;
+		SetWindowTextW(m_Handle, std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str());
+	}
+
 	void WindowsWindow::OnUpdate()
 	{
 		MSG msg;
@@ -39,7 +45,7 @@ namespace Onyx::System
 		ZeroMemory(&wc, sizeof(wc));
 		wc.cbSize			= sizeof(wc);
 		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wc.lpfnWndProc		= (WNDPROC)windowProc;
+		wc.lpfnWndProc		= (WNDPROC)WindowProcedure;
 		wc.hInstance		= GetModuleHandleW(nullptr);
 		wc.hCursor			= LoadCursorW(nullptr, IDC_ARROW);
 		wc.lpszClassName	= L"ONYX_WINDOW";
@@ -50,11 +56,10 @@ namespace Onyx::System
 			return;
 		}
 
-		auto title = std::wstring(m_Properties.Title.begin(), m_Properties.Title.end());;
 		m_Handle = CreateWindowExW(
 			WS_EX_APPWINDOW,
 			L"ONYX_WINDOW",
-			title.c_str(),
+			std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str(),
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,

@@ -8,10 +8,13 @@ namespace Onyx::System
 	public:
 		WindowsWindow(const WindowProperties& properties);
 		~WindowsWindow();
+
+		std::string GetTitle() const override { return m_Properties.Title;  }
+		void SetTitle(const std::string& title) override;
 		void OnUpdate() override;
 	private:
-		HWND m_Handle;
 		WindowProperties m_Properties;
+		HWND m_Handle;
 
 		void Initialise();
 		void Shutdown();

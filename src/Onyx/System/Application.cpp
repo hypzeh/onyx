@@ -5,7 +5,7 @@ namespace Onyx::System
 {
 	Application::Application()
 	{
-		m_Window = Window::Create();
+		m_Window = Window::Create(WindowProperties());
 	}
 
 	Application::~Application()
