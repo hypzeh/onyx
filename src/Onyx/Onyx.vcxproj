@@ -100,6 +100,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="System\Event.h" />
     <ClInclude Include="System\Window.h" />
+    <ClInclude Include="System\WindowCloseEvent.h" />
     <ClInclude Include="System\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>

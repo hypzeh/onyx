@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "WindowsWindow.h"
+#include "WindowCloseEvent.h"
 
 namespace Onyx::System
 {
@@ -9,13 +10,17 @@ namespace Onyx::System
 
 		switch (uMsg)
 		{
-		case WM_CLOSE:
-			Event event;
-			properties->DispatchEvent(event);
-			return 0;
+			case WM_CLOSE:
+			{
+				WindowCloseEvent event;
+				properties->DispatchEvent(event);
+				return 0;
+			}
 
-		default:
-			return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+			default:
+			{
+				return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+			}
 		}
 	}
 

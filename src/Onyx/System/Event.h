@@ -6,6 +6,6 @@ namespace Onyx::System
 	class Event
 	{
 	public:
-		std::string GetName() const { return "MY_TEST_EVENT"; }
+		virtual std::string GetName() const = 0;
 	};
 }
