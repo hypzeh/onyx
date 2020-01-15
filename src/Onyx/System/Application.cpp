@@ -6,6 +6,7 @@ namespace Onyx::System
 	Application::Application()
 	{
 		m_Window = Window::Create(WindowProperties());
+		m_Window->OnEvent(std::bind(&Application::HandleEvent, this, std::placeholders::_1));
 	}
 
 	Application::~Application()
@@ -20,5 +21,10 @@ namespace Onyx::System
 		{
 			m_Window->OnUpdate();
 		}
+	}
+
+	void Application::HandleEvent(const Event& event)
+	{
+		ONYX_LOG_TRACE("EVENT RAISED");
 	}
 }

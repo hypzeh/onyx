@@ -11,5 +11,6 @@ namespace Onyx::System
 		void Run();
 	private:
 		std::unique_ptr<Window> m_Window;
+		void HandleEvent(const Event& event);
 	};
 }
