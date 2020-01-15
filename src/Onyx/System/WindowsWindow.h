@@ -11,6 +11,7 @@ namespace Onyx::System
 
 		std::string GetTitle() const override { return m_Properties.Title;  }
 		void SetTitle(const std::string& title) override;
+		void OnEvent(const WindowProperties::DispatchEventFunc& callback) override { m_Properties.DispatchEvent = callback; }
 		void OnUpdate() override;
 	private:
 		WindowProperties m_Properties;
