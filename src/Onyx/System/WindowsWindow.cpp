@@ -46,7 +46,7 @@ namespace Onyx::System
 		SetWindowTextW(m_Handle, std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str());
 	}
 
-	void WindowsWindow::OnUpdate()
+	void WindowsWindow::Update()
 	{
 		MSG msg;
 		if (GetMessage(&msg, nullptr, 0, 0) > 0) {

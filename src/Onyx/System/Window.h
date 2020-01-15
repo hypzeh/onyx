@@ -35,6 +35,6 @@ namespace Onyx::System
 		virtual std::string GetTitle() const = 0;
 		virtual void SetTitle(const std::string& title) = 0;
 		virtual void OnEvent(const WindowProperties::DispatchEventFunc& callback) = 0;
-		virtual void OnUpdate() = 0;
+		virtual void Update() = 0;
 	};
 }

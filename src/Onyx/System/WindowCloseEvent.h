@@ -9,5 +9,6 @@ namespace Onyx::System
 		WindowCloseEvent() = default;
 
 		std::string GetName() const override { return "WINDOW_CLOSE_EVENT"; }
+		EventType GetType() const override { return EventType::WindowClose;  }
 	};
 }
