@@ -101,5 +101,6 @@ namespace Onyx::System
 	void WindowsWindow::Shutdown()
 	{
 		UnregisterClassW(L"ONYX_WINDOW", GetModuleHandleW(nullptr));
+		DestroyWindow(m_Handle);
 	}
 }

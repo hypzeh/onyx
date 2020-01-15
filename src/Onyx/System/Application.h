@@ -8,9 +8,12 @@ namespace Onyx::System
 	public:
 		Application();
 		~Application();
+
 		void Run();
 	private:
 		std::unique_ptr<Window> m_Window;
+		bool m_Running;
+
 		void HandleEvent(const Event& event);
 	};
 }

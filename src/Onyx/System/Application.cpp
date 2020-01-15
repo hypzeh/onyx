@@ -16,8 +16,8 @@ namespace Onyx::System
 
 	void Application::Run()
 	{
-		ONYX_LOG_TRACE("Onyx Engine.");
-		while (true)
+		m_Running = true;
+		while (m_Running)
 		{
 			m_Window->OnUpdate();
 		}
@@ -26,5 +26,6 @@ namespace Onyx::System
 	void Application::HandleEvent(const Event& event)
 	{
 		ONYX_LOG_TRACE("EVENT RAISED");
+		m_Running = false;
 	}
 }
