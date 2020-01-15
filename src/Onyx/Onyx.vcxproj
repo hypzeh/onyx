@@ -98,6 +98,7 @@
     <ClInclude Include="Diagnostics\Logger.h" />
     <ClInclude Include="Onyx.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="System\Event.h" />
     <ClInclude Include="System\Window.h" />
     <ClInclude Include="System\WindowsWindow.h" />
   </ItemGroup>
