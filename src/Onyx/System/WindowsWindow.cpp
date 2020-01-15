@@ -5,7 +5,18 @@ namespace Onyx::System
 {
 	LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+		auto properties = (WindowProperties*)GetPropW(hWnd, L"PROPS_FULL");
+
+		switch (uMsg)
+		{
+		case WM_CLOSE:
+			Event event;
+			properties->DispatchEvent(event);
+			return 0;
+
+		default:
+			return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+		}
 	}
 
 	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
@@ -76,6 +87,7 @@ namespace Onyx::System
 			return;
 		}
 
+		SetPropW(m_Handle, L"PROPS_FULL", &m_Properties);
 		ShowWindow(m_Handle, SW_SHOWNA);
 		SetForegroundWindow(m_Handle);
 		SetFocus(m_Handle);
