@@ -1,11 +1,27 @@
 #include "pch.h"
 #include "WindowsWindow.h"
+#include "WindowCloseEvent.h"
 
 namespace Onyx::System
 {
-	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+		auto properties = (WindowProperties*)GetPropW(hWnd, L"PROPS_FULL");
+
+		switch (uMsg)
+		{
+			case WM_CLOSE:
+			{
+				WindowCloseEvent event;
+				properties->DispatchEvent(event);
+				return 0;
+			}
+
+			default:
+			{
+				return DefWindowProcW(hWnd, uMsg, wParam, lParam);
+			}
+		}
 	}
 
 	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
@@ -14,8 +30,9 @@ namespace Onyx::System
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
+		: m_Properties(properties)
 	{
-		Initialise(properties);
+		Initialise();
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -23,7 +40,13 @@ namespace Onyx::System
 		Shutdown();
 	}
 
-	void WindowsWindow::OnUpdate()
+	void WindowsWindow::SetTitle(const std::string& title)
+	{
+		m_Properties.Title = title;
+		SetWindowTextW(m_Handle, std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str());
+	}
+
+	void WindowsWindow::Update()
 	{
 		MSG msg;
 		if (GetMessage(&msg, nullptr, 0, 0) > 0) {
@@ -32,19 +55,16 @@ namespace Onyx::System
 		}
 	}
 
-	void WindowsWindow::Initialise(const WindowProperties& properties)
+	void WindowsWindow::Initialise()
 	{
-		auto id = std::wstring(properties.Identifier.begin(), properties.Identifier.end());
-		m_windowID = id.c_str();
-
 		WNDCLASSEXW wc;
 		ZeroMemory(&wc, sizeof(wc));
 		wc.cbSize			= sizeof(wc);
 		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wc.lpfnWndProc		= (WNDPROC)windowProc;
+		wc.lpfnWndProc		= (WNDPROC)WindowProcedure;
 		wc.hInstance		= GetModuleHandleW(nullptr);
 		wc.hCursor			= LoadCursorW(nullptr, IDC_ARROW);
-		wc.lpszClassName	= m_windowID;
+		wc.lpszClassName	= L"ONYX_WINDOW";
 
 		if (!RegisterClassExW(&wc))
 		{
@@ -52,34 +72,35 @@ namespace Onyx::System
 			return;
 		}
 
-		auto name = std::wstring(properties.Title.begin(), properties.Title.end());;
-		m_window = CreateWindowExW(
+		m_Handle = CreateWindowExW(
 			WS_EX_APPWINDOW,
-			m_windowID,
-			name.c_str(),
+			L"ONYX_WINDOW",
+			std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str(),
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
-			properties.Width,
-			properties.Height,
+			m_Properties.Width,
+			m_Properties.Height,
 			nullptr,
 			nullptr,
 			GetModuleHandleW(nullptr),
 			nullptr);
 
-		if (!m_window)
+		if (!m_Handle)
 		{
 			ONYX_LOG_ERROR("Could not create window");
 			return;
 		}
 
-		ShowWindow(m_window, SW_SHOWNA);
-		SetForegroundWindow(m_window);
-		SetFocus(m_window);
+		SetPropW(m_Handle, L"PROPS_FULL", &m_Properties);
+		ShowWindow(m_Handle, SW_SHOWNA);
+		SetForegroundWindow(m_Handle);
+		SetFocus(m_Handle);
 	}
 
 	void WindowsWindow::Shutdown()
 	{
-		UnregisterClassW(m_windowID, GetModuleHandleW(nullptr));
+		UnregisterClassW(L"ONYX_WINDOW", GetModuleHandleW(nullptr));
+		DestroyWindow(m_Handle);
 	}
 }
