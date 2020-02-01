@@ -49,5 +49,12 @@ _deps
 # External projects
 *-prefix/
 
-# Visual Studio 2015/2017 cache/options directory
+# Build Tools
+build/tools/
+
+# Build Artifacts
+artifacts/
+out/
+
+# Visual Studio cache/options directory
 .vs/
