@@ -9,3 +9,5 @@ project(
 	DESCRIPTION "Onyx Rendering Engine"
 	HOMEPAGE_URL "https://github.com/hypzeh/onyx"
 )
+
+add_subdirectory(samples/Sandbox)
