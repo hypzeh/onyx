@@ -1,7 +1,8 @@
 #include <iostream>
+#include "OnyxEngine.h"
 
 int main()
 {
-  std::cout << "Onyx Engine.";
+  auto app = Application();
   std::getchar();
 }
