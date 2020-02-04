@@ -1,1 +1,1 @@
-add_library(OnyxEngine STATIC OnyxEngine.h)
+add_library(OnyxEngine STATIC OnyxEngine.h Application.h Application.cpp)
