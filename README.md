@@ -5,3 +5,9 @@
 _Onyx is an open-source rendering engine written in C++._
 
 ![Onyx](./docs/.assets/project-title.png)
+
+## Getting Started
+
+### Prerequisites
+
+- [CMake](https://cmake.org/download/)
