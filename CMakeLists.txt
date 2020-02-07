@@ -1,15 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
-project(
-  Onyx
-  LANGUAGES C CXX
-  VERSION 0.0.1
-  DESCRIPTION "Onyx Rendering Engine"
-  HOMEPAGE_URL "https://github.com/hypzeh/onyx"
+project(Onyx
+        VERSION 0.0.1
+        LANGUAGES C CXX
+        DESCRIPTION "Onyx Rendering Engine"
+        HOMEPAGE_URL "https://github.com/hypzeh/onyx"
 )
-
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-Wall")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -20,6 +15,9 @@ set(ONYX_SRC_DIR ${ONYX_ROOT_DIR}/src)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/bin)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall")
 
 add_subdirectory(${ONYX_SRC_DIR}/Onyx.Engine)
 add_subdirectory(${ONYX_SRC_DIR}/Onyx.Sandbox)

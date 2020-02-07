@@ -1,1 +1,7 @@
-add_library(Onyx.Engine STATIC Onyx.h Application.h Application.cpp)
+set(ONYX_SOURCES_ENGINE 
+    Onyx.h
+    System/Application.h
+    System/Application.cpp
+)
+
+add_library(Onyx.Engine STATIC ${ONYX_SOURCES_ENGINE})
