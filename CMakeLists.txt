@@ -21,5 +21,5 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ONYX_ARTIFACTS_DIR}/bin)
 
-add_subdirectory(${ONYX_SRC_DIR}/Onyx)
-add_subdirectory(samples/Sandbox)
+add_subdirectory(${ONYX_SRC_DIR}/Onyx.Engine)
+add_subdirectory(${ONYX_SRC_DIR}/Onyx.Sandbox)
