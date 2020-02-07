@@ -1,5 +1,5 @@
 #include <iostream>
-#include "OnyxEngine.h"
+#include "Onyx.h"
 
 int main()
 {
