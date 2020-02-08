@@ -3,7 +3,6 @@ project(Onyx
         VERSION 0.0.1
         LANGUAGES C CXX
         DESCRIPTION "Onyx Rendering Engine"
-        HOMEPAGE_URL "https://github.com/hypzeh/onyx"
 )
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
