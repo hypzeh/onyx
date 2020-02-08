@@ -12,4 +12,4 @@ steps:
 - task: CMake@1
   displayName: 'Replace Tokens'
   inputs:
-    cmakeArgs: '.. -GNinja -DCMAKE_BUILD_TYPE=$(buildConfiguration)'
+    cmakeArgs: '.. -DCMAKE_BUILD_TYPE=$(buildConfiguration)'
