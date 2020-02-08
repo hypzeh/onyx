@@ -12,7 +12,7 @@ steps:
 - task: CMake@1
   displayName: 'CMake'
   inputs:
-    cmakeArgs: '.. -DCMAKE_BUILD_TYPE=$(buildConfiguration)'
+    cmakeArgs: '.. --build $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifacts'
