@@ -4,26 +4,6 @@
 
 namespace Onyx::Engine::System
 {
-	LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-	{
-		auto properties = (WindowProperties*)GetPropW(hWnd, L"PROPS_FULL");
-
-		switch (uMsg)
-		{
-		case WM_CLOSE:
-		{
-			WindowCloseEvent event;
-			properties->DispatchEvent(event);
-			return 0;
-		}
-
-		default:
-		{
-			return DefWindowProcW(hWnd, uMsg, wParam, lParam);
-		}
-		}
-	}
-
 	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
 	{
 		return std::make_unique<WindowsWindow>(properties);
@@ -43,64 +23,37 @@ namespace Onyx::Engine::System
 	void WindowsWindow::SetTitle(const std::string& title)
 	{
 		m_Properties.Title = title;
-		SetWindowTextW(m_Handle, std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str());
+		glfwSetWindowTitle(m_Handle, m_Properties.Title.c_str());
 	}
 
 	void WindowsWindow::Update()
 	{
-		MSG msg;
-		if (GetMessage(&msg, nullptr, 0, 0) > 0) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
+		glfwPollEvents();
 	}
 
 	void WindowsWindow::Initialise()
 	{
-		WNDCLASSEXW wc;
-		ZeroMemory(&wc, sizeof(wc));
-		wc.cbSize = sizeof(wc);
-		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wc.lpfnWndProc = (WNDPROC)WindowProcedure;
-		wc.hInstance = GetModuleHandleW(nullptr);
-		wc.hCursor = LoadCursorW(nullptr, (LPCWSTR)IDC_ARROW);
-		wc.lpszClassName = L"ONYX_WINDOW";
-
-		if (!RegisterClassExW(&wc))
+		if (!glfwInit())
 		{
-			ONYX_LOG_ERROR("Could not register window");
+			ONYX_LOG_ERROR("Could not initialise GLFW");
 			return;
 		}
 
-		m_Handle = CreateWindowExW(
-			WS_EX_APPWINDOW,
-			L"ONYX_WINDOW",
-			std::wstring(m_Properties.Title.begin(), m_Properties.Title.end()).c_str(),
-			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION,
-			CW_USEDEFAULT,
-			CW_USEDEFAULT,
-			m_Properties.Width,
-			m_Properties.Height,
-			nullptr,
-			nullptr,
-			GetModuleHandleW(nullptr),
-			nullptr);
+		m_Handle = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
+		glfwSetWindowUserPointer(m_Handle, &m_Properties);
+		glfwSwapInterval(1); // TODO: Don't hardcode V-Sync
 
-		if (!m_Handle)
+		glfwSetWindowCloseCallback(m_Handle, [](auto window)
 		{
-			ONYX_LOG_ERROR("Could not create window");
-			return;
-		}
-
-		SetPropW(m_Handle, L"PROPS_FULL", &m_Properties);
-		ShowWindow(m_Handle, SW_SHOWNA);
-		SetForegroundWindow(m_Handle);
-		SetFocus(m_Handle);
+			auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
+			WindowCloseEvent event;
+			properties->DispatchEvent(event);
+		});
 	}
 
 	void WindowsWindow::Shutdown()
 	{
-		UnregisterClassW(L"ONYX_WINDOW", GetModuleHandleW(nullptr));
-		DestroyWindow(m_Handle);
+		glfwDestroyWindow(m_Handle);
+		glfwTerminate();
 	}
 }

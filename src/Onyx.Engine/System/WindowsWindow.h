@@ -1,6 +1,8 @@
 #pragma once
 #include "..\pch.h"
 
+#include <GLFW\glfw3.h>
+
 namespace Onyx::Engine::System
 {
 	class WindowsWindow : public Window
@@ -15,7 +17,7 @@ namespace Onyx::Engine::System
 		void Update() override;
 	private:
 		WindowProperties m_Properties;
-		HWND m_Handle;
+		GLFWwindow* m_Handle;
 
 		void Initialise();
 		void Shutdown();
