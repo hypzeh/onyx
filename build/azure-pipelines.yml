@@ -10,6 +10,13 @@ variables:
 
 steps:
 - task: CMake@1
-  displayName: 'Replace Tokens'
+  displayName: 'CMake'
   inputs:
     cmakeArgs: '.. -DCMAKE_BUILD_TYPE=$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
