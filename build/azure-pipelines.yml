@@ -5,13 +5,25 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Release'
 
 steps:
-- task: VSBuild@1
+- task: CMake@1
+  displayName: 'CMake'
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    cmakeArgs: '..'
+
+- task: CopyFiles@2
+  displayName: 'Stage build artifacts'
+  inputs:
+    SourceFolder: 'build'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
