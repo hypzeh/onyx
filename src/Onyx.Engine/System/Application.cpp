@@ -6,22 +6,31 @@ namespace Onyx::Engine::System
 	Application::Application()
 	{
 		ONYX_LOG_TRACE("Onyx Engine");
-		m_Window = Window::Create(WindowProperties());
-		m_Window->OnEvent(std::bind(&Application::HandleEvent, this, std::placeholders::_1));
+		window_ = Window::Create(WindowProperties());
+		window_->OnEvent(std::bind(&Application::HandleEvent, this, std::placeholders::_1));
 	}
 
 	Application::~Application()
-	{
-
-	}
+	{}
 
 	void Application::Run()
 	{
-		m_Running = true;
-		while (m_Running)
+		OnRun();
+		is_running_ = true;
+		while (is_running_)
 		{
-			m_Window->Update();
+			window_->Update();
 		}
+	}
+
+	void Application::OnClose()
+	{
+		ONYX_LOG_TRACE("Window closed");
+	}
+
+	void Application::OnRun()
+	{
+		ONYX_LOG_TRACE("Application run");
 	}
 
 	void Application::HandleEvent(const Event& event)
@@ -29,10 +38,9 @@ namespace Onyx::Engine::System
 		switch (event.GetType())
 		{
 		case EventType::WindowClose:
-		{
-			ONYX_LOG_TRACE("Window closed event");
-			m_Running = false;
-		}
+			is_running_ = false;
+			OnClose();
+			break;
 		}
 	}
 }
