@@ -4,13 +4,8 @@
 
 namespace Onyx::Engine::System
 {
-	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
-	{
-		return std::make_unique<WindowsWindow>(properties);
-	}
-
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
-		: m_Properties(properties)
+		: Window(properties)
 	{
 		Initialise();
 	}
@@ -20,13 +15,17 @@ namespace Onyx::Engine::System
 		Shutdown();
 	}
 
-	void WindowsWindow::SetTitle(const std::string& title)
+	void WindowsWindow::OnSetTitle() const
 	{
-		m_Properties.Title = title;
-		glfwSetWindowTitle(m_Handle, m_Properties.Title.c_str());
+		glfwSetWindowTitle(window_, GetTitle().c_str());
 	}
 
-	void WindowsWindow::Update()
+	void WindowsWindow::OnSetSize() const
+	{
+		glfwSetWindowSize(window_, GetWidth(), GetHeight());
+	}
+
+	void WindowsWindow::OnUpdate() const
 	{
 		glfwPollEvents();
 	}
@@ -39,11 +38,12 @@ namespace Onyx::Engine::System
 			return;
 		}
 
-		m_Handle = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
-		glfwSetWindowUserPointer(m_Handle, &m_Properties);
+		window_ = glfwCreateWindow(GetWidth(), GetHeight(), GetTitle().c_str(), nullptr, nullptr);
+
+		glfwSetWindowUserPointer(window_, (void*)GetProperties());
 		glfwSwapInterval(1); // TODO: Don't hardcode V-Sync
 
-		glfwSetWindowCloseCallback(m_Handle, [](auto window)
+		glfwSetWindowCloseCallback(window_, [](auto window)
 		{
 			auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
 			WindowCloseEvent event;
@@ -53,7 +53,7 @@ namespace Onyx::Engine::System
 
 	void WindowsWindow::Shutdown()
 	{
-		glfwDestroyWindow(m_Handle);
+		glfwDestroyWindow(window_);
 		glfwTerminate();
 	}
 }

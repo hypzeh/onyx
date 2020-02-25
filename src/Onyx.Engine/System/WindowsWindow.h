@@ -1,6 +1,5 @@
 #pragma once
 #include "..\pch.h"
-
 #include <GLFW\glfw3.h>
 
 namespace Onyx::Engine::System
@@ -11,13 +10,13 @@ namespace Onyx::Engine::System
 		WindowsWindow(const WindowProperties& properties);
 		~WindowsWindow();
 
-		std::string GetTitle() const override { return m_Properties.Title; }
-		void SetTitle(const std::string& title) override;
-		void OnEvent(const WindowProperties::DispatchEventFunc& callback) override { m_Properties.DispatchEvent = callback; }
-		void Update() override;
+	protected:
+		void OnSetTitle() const override;
+		void OnSetSize() const override;
+		void OnUpdate() const override;
+
 	private:
-		WindowProperties m_Properties;
-		GLFWwindow* m_Handle;
+		GLFWwindow* window_;
 
 		void Initialise();
 		void Shutdown();
