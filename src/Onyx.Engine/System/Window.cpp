@@ -9,61 +9,61 @@ namespace Onyx::Engine::System
 	}
 
 	Window::Window(const WindowProperties& properties)
-		: properties_(properties)
+		: properties_(std::make_unique<WindowProperties>(properties))
 	{}
 
-	const WindowProperties& Window::GetProperties() const
+	const WindowProperties* Window::GetProperties() const
 	{
-		return properties_;
+		return properties_.get();
 	}
 
 	const std::string Window::GetTitle() const
 	{
-		return properties_.Title;
+		return properties_->Title;
 	}
 
 	const unsigned int Window::GetWidth() const
 	{
-		return properties_.Width;
+		return properties_->Width;
 	}
 
 	const unsigned int Window::GetHeight() const
 	{
-		return properties_.Height;
+		return properties_->Height;
 	}
 
 	const bool Window::IsVSyncEnabled() const
 	{
-		return properties_.VSyncEnabled;
+		return properties_->VSyncEnabled;
 	}
 
 	void Window::OnEvent(const WindowProperties::DispatchEventFunc& callback)
 	{
-		properties_.DispatchEvent = callback;
+		properties_->DispatchEvent = callback;
 	}
 
 	void Window::SetTitle(const std::string& title)
 	{
-		properties_.Title = title;
+		properties_->Title = title;
 		OnTitleChange(title);
 	}
 
 	void Window::SetSize(const unsigned int& width, const unsigned int& height)
 	{
-		properties_.Width = width;
-		properties_.Height = height;
+		properties_->Width = width;
+		properties_->Height = height;
 		OnSizeChange(width, height);
 	}
 
 	void Window::EnableVSync()
 	{
-		properties_.VSyncEnabled = true;
+		properties_->VSyncEnabled = true;
 		OnVSyncChange(true);
 	}
 
 	void Window::DisableVSync()
 	{
-		properties_.VSyncEnabled = false;
+		properties_->VSyncEnabled = false;
 		OnVSyncChange(false);
 	}
 

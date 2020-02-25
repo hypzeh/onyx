@@ -12,7 +12,7 @@ namespace Onyx::Engine::System
 		Window(const WindowProperties& properties);
 		virtual ~Window() = default;
 
-		const WindowProperties& GetProperties() const;
+		const WindowProperties* GetProperties() const;
 		const std::string GetTitle() const;
 		const unsigned int GetWidth() const;
 		const unsigned int GetHeight() const;
@@ -31,6 +31,6 @@ namespace Onyx::Engine::System
 		virtual void OnUpdate() const = 0;
 		
 	private:
-		WindowProperties properties_;
+		std::unique_ptr<WindowProperties> properties_;
 	};
 }

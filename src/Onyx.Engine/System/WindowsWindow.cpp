@@ -45,7 +45,7 @@ namespace Onyx::Engine::System
 
 		window_ = glfwCreateWindow(GetWidth(), GetHeight(), GetTitle().c_str(), nullptr, nullptr);
 
-		auto properties = &GetProperties();
+		auto* properties = GetProperties();
 		glfwSetWindowUserPointer(window_, (void*)properties);
 		glfwSwapInterval(properties->VSyncEnabled ? 1 : 0);
 
