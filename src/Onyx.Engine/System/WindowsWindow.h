@@ -11,8 +11,9 @@ namespace Onyx::Engine::System
 		~WindowsWindow();
 
 	protected:
-		void OnSetTitle() const override;
-		void OnSetSize() const override;
+		void OnTitleChange(const std::string& title) const override;
+		void OnSizeChange(const unsigned int& width, const unsigned int& height) const override;
+		void OnVSyncChange(const bool& is_enabled) const override;
 		void OnUpdate() const override;
 
 	private:

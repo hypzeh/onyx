@@ -15,14 +15,19 @@ namespace Onyx::Engine::System
 		Shutdown();
 	}
 
-	void WindowsWindow::OnSetTitle() const
+	void WindowsWindow::OnTitleChange(const std::string& title) const
 	{
-		glfwSetWindowTitle(window_, GetTitle().c_str());
+		glfwSetWindowTitle(window_, title.c_str());
 	}
 
-	void WindowsWindow::OnSetSize() const
+	void WindowsWindow::OnSizeChange(const unsigned int& width, const unsigned int& height) const
 	{
-		glfwSetWindowSize(window_, GetWidth(), GetHeight());
+		glfwSetWindowSize(window_, width, height);
+	}
+
+	void WindowsWindow::OnVSyncChange(const bool& is_enabled) const
+	{
+		glfwSwapInterval(is_enabled ? 1 : 0);
 	}
 
 	void WindowsWindow::OnUpdate() const
@@ -40,8 +45,9 @@ namespace Onyx::Engine::System
 
 		window_ = glfwCreateWindow(GetWidth(), GetHeight(), GetTitle().c_str(), nullptr, nullptr);
 
-		glfwSetWindowUserPointer(window_, (void*)GetProperties());
-		glfwSwapInterval(1); // TODO: Don't hardcode V-Sync
+		auto properties = &GetProperties();
+		glfwSetWindowUserPointer(window_, (void*)properties);
+		glfwSwapInterval(properties->VSyncEnabled ? 1 : 0);
 
 		glfwSetWindowCloseCallback(window_, [](auto window)
 		{

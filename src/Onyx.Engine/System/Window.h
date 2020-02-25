@@ -12,18 +12,22 @@ namespace Onyx::Engine::System
 		Window(const WindowProperties& properties);
 		virtual ~Window() = default;
 
-		const WindowProperties* GetProperties() const;
+		const WindowProperties& GetProperties() const;
 		const std::string GetTitle() const;
 		const unsigned int GetWidth() const;
 		const unsigned int GetHeight() const;
+		const bool IsVSyncEnabled() const;
 		void OnEvent(const WindowProperties::DispatchEventFunc& callback);
 		void SetTitle(const std::string& title);
-		void SetSize(unsigned int& width, unsigned int& height);
+		void SetSize(const unsigned int& width, const unsigned int& height);
+		void EnableVSync();
+		void DisableVSync();
 		void Update() const;
 
 	protected:
-		virtual void OnSetTitle() const = 0;
-		virtual void OnSetSize() const = 0;
+		virtual void OnTitleChange(const std::string& title) const = 0;
+		virtual void OnSizeChange(const unsigned int& width, const unsigned int& height) const = 0;
+		virtual void OnVSyncChange(const bool& is_enabled) const = 0;
 		virtual void OnUpdate() const = 0;
 		
 	private:
