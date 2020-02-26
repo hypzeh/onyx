@@ -1,11 +1,19 @@
 #include "Window.h"
+
+#ifdef ONYX_PLATFORM_WINDOWS
 #include "WindowsWindow.h"
+#endif
 
 namespace Onyx::Engine::System
 {
 	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
 	{
+#ifdef ONYX_PLATFORM_WINDOWS
 		return std::make_unique<WindowsWindow>(properties);
+#else
+		ONYX_LOG_ERROR("Unknown platofrm");
+		return nullptr;
+#endif
 	}
 
 	Window::Window(const WindowProperties& properties)
