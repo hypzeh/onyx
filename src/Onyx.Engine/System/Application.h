@@ -1,6 +1,8 @@
 #pragma once
 #include "..\pch.h"
 
+using namespace Onyx::Engine::System::Events;
+
 namespace Onyx::Engine::System
 {
   class Application
@@ -10,9 +12,16 @@ namespace Onyx::Engine::System
     ~Application();
 
     void Run();
+
+  protected:
+    virtual void OnClose(const WindowCloseEvent& event);
+    virtual void OnResize(const WindowResizeEvent& event);
+    virtual void OnMouseMove(const MouseMoveEvent& event);
+    virtual void OnRun();
+
   private:
-    std::unique_ptr<Window> m_Window;
-    bool m_Running;
+    std::unique_ptr<Window> window_;
+    bool is_running_;
 
     void HandleEvent(const Event& event);
   };

@@ -1,59 +1,79 @@
-#include "..\pch.h"
 #include "WindowsWindow.h"
-#include "WindowCloseEvent.h"
 
 namespace Onyx::Engine::System
 {
-	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
-	{
-		return std::make_unique<WindowsWindow>(properties);
-	}
+  WindowsWindow::WindowsWindow(const WindowProperties& properties)
+    : Window(properties)
+  {
+    Initialise();
+  }
 
-	WindowsWindow::WindowsWindow(const WindowProperties& properties)
-		: m_Properties(properties)
-	{
-		Initialise();
-	}
+  WindowsWindow::~WindowsWindow()
+  {
+    Shutdown();
+  }
 
-	WindowsWindow::~WindowsWindow()
-	{
-		Shutdown();
-	}
+  void WindowsWindow::OnTitleChange(const std::string& title) const
+  {
+    glfwSetWindowTitle(window_, title.c_str());
+  }
 
-	void WindowsWindow::SetTitle(const std::string& title)
-	{
-		m_Properties.Title = title;
-		glfwSetWindowTitle(m_Handle, m_Properties.Title.c_str());
-	}
+  void WindowsWindow::OnSizeChange(const unsigned int& width, const unsigned int& height) const
+  {
+    glfwSetWindowSize(window_, width, height);
+  }
 
-	void WindowsWindow::Update()
-	{
-		glfwPollEvents();
-	}
+  void WindowsWindow::OnVSyncChange(const bool& is_enabled) const
+  {
+    glfwSwapInterval(is_enabled ? 1 : 0);
+  }
 
-	void WindowsWindow::Initialise()
-	{
-		if (!glfwInit())
-		{
-			ONYX_LOG_ERROR("Could not initialise GLFW");
-			return;
-		}
+  void WindowsWindow::OnUpdate() const
+  {
+    glfwPollEvents();
+  }
 
-		m_Handle = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), nullptr, nullptr);
-		glfwSetWindowUserPointer(m_Handle, &m_Properties);
-		glfwSwapInterval(1); // TODO: Don't hardcode V-Sync
+  void WindowsWindow::Initialise()
+  {
+    if (!glfwInit())
+    {
+      ONYX_LOG_ERROR("Could not initialise GLFW");
+      return;
+    }
 
-		glfwSetWindowCloseCallback(m_Handle, [](auto window)
-		{
-			auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent event;
-			properties->DispatchEvent(event);
-		});
-	}
+    window_ = glfwCreateWindow(GetWidth(), GetHeight(), GetTitle().c_str(), nullptr, nullptr);
 
-	void WindowsWindow::Shutdown()
-	{
-		glfwDestroyWindow(m_Handle);
-		glfwTerminate();
-	}
+    auto* properties = GetProperties();
+    glfwSetWindowUserPointer(window_, (void*)properties);
+    glfwSwapInterval(properties->VSyncEnabled ? 1 : 0);
+
+    glfwSetWindowCloseCallback(window_, [](auto window)
+    {
+      auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
+      auto event      = WindowCloseEvent();
+      properties->DispatchEvent(event);
+    });
+
+    glfwSetWindowSizeCallback(window_, [](auto window, int width, int height)
+    {
+      auto properties     = (WindowProperties*)glfwGetWindowUserPointer(window);
+      auto event          = WindowResizeEvent(width, height);
+      properties->Width   = width;
+      properties->Height  = height;
+      properties->DispatchEvent(event);
+    });
+
+    glfwSetCursorPosCallback(window_, [](auto window, double position_x, double position_y)
+    {
+      auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
+      auto event      = MouseMoveEvent((float)position_x, (float)position_y);
+      properties->DispatchEvent(event);
+    });
+  }
+
+  void WindowsWindow::Shutdown()
+  {
+    glfwDestroyWindow(window_);
+    glfwTerminate();
+  }
 }

@@ -1,4 +1,4 @@
-add_executable(Onyx.Sandbox Main.cpp)
+add_executable(Onyx.Sandbox Main.cpp App.cpp App.h)
 
 set_target_properties(Onyx.Sandbox PROPERTIES FOLDER src)
 

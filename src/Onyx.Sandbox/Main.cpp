@@ -1,8 +1,8 @@
 #include <memory>
-#include <Onyx.h>
+#include "App.h"
 
 int main()
 {
-	auto application = std::make_unique<Onyx::Engine::System::Application>();
-	application->Run();
+  auto app = std::make_unique<App>();
+  app->Run();
 }
