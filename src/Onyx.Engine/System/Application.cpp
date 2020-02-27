@@ -1,4 +1,3 @@
-#include "..\pch.h"
 #include "Application.h"
 
 namespace Onyx::Engine::System
@@ -23,9 +22,16 @@ namespace Onyx::Engine::System
 		}
 	}
 
-	void Application::OnClose()
+	void Application::OnClose(const WindowCloseEvent& event)
 	{
 		ONYX_LOG_TRACE("Window closed");
+	}
+
+	void Application::OnResize(const WindowResizeEvent& event)
+	{
+		std::stringstream output;
+		output << "Window Resized\twidth: " << event.GetWidth() << "  height: " << event.GetHeight();
+		ONYX_LOG_TRACE(output.str());
 	}
 
 	void Application::OnRun()
@@ -39,7 +45,15 @@ namespace Onyx::Engine::System
 		{
 		case EventType::WindowClose:
 			is_running_ = false;
-			OnClose();
+			OnClose(dynamic_cast<const WindowCloseEvent&>(event));
+			break;
+
+		case EventType::WindowResize:
+			OnResize(dynamic_cast<const WindowResizeEvent&>(event));
+			break;
+
+		default:
+			ONYX_LOG_WARNING("Unknown event");
 			break;
 		}
 	}

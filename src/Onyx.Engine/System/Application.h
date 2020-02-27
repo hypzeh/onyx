@@ -14,7 +14,8 @@ namespace Onyx::Engine::System
     void Run();
 
   protected:
-    virtual void OnClose();
+    virtual void OnClose(const WindowCloseEvent& event);
+    virtual void OnResize(const WindowResizeEvent& event);
     virtual void OnRun();
 
   private:

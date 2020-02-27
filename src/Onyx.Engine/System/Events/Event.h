@@ -7,6 +7,6 @@ namespace Onyx::Engine::System::Events
 	{
 	public:
 		virtual std::string GetName() const = 0;
-		virtual EventType GetType() const = 0;
+		virtual EventType GetType() const		= 0;
 	};
 }

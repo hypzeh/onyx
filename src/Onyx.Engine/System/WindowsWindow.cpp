@@ -1,5 +1,3 @@
-#include "..\pch.h"
-#include "Events\WindowCloseEvent.h"
 #include "WindowsWindow.h"
 
 namespace Onyx::Engine::System
@@ -52,7 +50,16 @@ namespace Onyx::Engine::System
 		glfwSetWindowCloseCallback(window_, [](auto window)
 		{
 			auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent event;
+			auto event			= WindowCloseEvent();
+			properties->DispatchEvent(event);
+		});
+
+		glfwSetWindowSizeCallback(window_, [](auto window, int width, int height)
+		{
+			auto properties			= (WindowProperties*)glfwGetWindowUserPointer(window);
+			auto event					= WindowResizeEvent(width, height);
+			properties->Width		= width;
+			properties->Height	= height;
 			properties->DispatchEvent(event);
 		});
 	}

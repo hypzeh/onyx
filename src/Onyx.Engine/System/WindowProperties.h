@@ -17,11 +17,11 @@ namespace Onyx::Engine::System
     DispatchEventFunc DispatchEvent;
     
     WindowProperties(
-      const std::string& title = "ONYX_ENGINE",
-      unsigned int width = 1280,
-      unsigned int height = 720,
-      bool is_vsync_enabled = true,
-      DispatchEventFunc dispatch = [](const Event&) {})
+      const std::string& title    = "ONYX_ENGINE",
+      unsigned int width          = 1280,
+      unsigned int height         = 720,
+      bool is_vsync_enabled       = true,
+      DispatchEventFunc dispatch  = [](const Event&) {})
       : Title(title),
         Width(width),
         Height(height),
