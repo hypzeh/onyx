@@ -58,7 +58,7 @@ namespace Onyx::Engine::System
 
   void Window::SetSize(const unsigned int& width, const unsigned int& height)
   {
-    properties_->Width	= width;
+    properties_->Width  = width;
     properties_->Height = height;
     OnSizeChange(width, height);
   }

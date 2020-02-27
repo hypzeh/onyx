@@ -50,23 +50,23 @@ namespace Onyx::Engine::System
     glfwSetWindowCloseCallback(window_, [](auto window)
     {
       auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
-      auto event			= WindowCloseEvent();
+      auto event      = WindowCloseEvent();
       properties->DispatchEvent(event);
     });
 
     glfwSetWindowSizeCallback(window_, [](auto window, int width, int height)
     {
-      auto properties			= (WindowProperties*)glfwGetWindowUserPointer(window);
-      auto event					= WindowResizeEvent(width, height);
-      properties->Width		= width;
-      properties->Height	= height;
+      auto properties     = (WindowProperties*)glfwGetWindowUserPointer(window);
+      auto event          = WindowResizeEvent(width, height);
+      properties->Width   = width;
+      properties->Height  = height;
       properties->DispatchEvent(event);
     });
 
     glfwSetCursorPosCallback(window_, [](auto window, double position_x, double position_y)
     {
       auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
-      auto event = MouseMoveEvent((float)position_x, (float)position_y);
+      auto event      = MouseMoveEvent((float)position_x, (float)position_y);
       properties->DispatchEvent(event);
     });
   }

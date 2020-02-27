@@ -25,10 +25,10 @@ namespace Onyx::Engine::System
     void Update() const;
 
   protected:
-    virtual void OnTitleChange(const std::string& title) const															= 0;
-    virtual void OnSizeChange(const unsigned int& width, const unsigned int& height) const	= 0;
-    virtual void OnVSyncChange(const bool& is_enabled) const																= 0;
-    virtual void OnUpdate() const																														= 0;
+    virtual void OnTitleChange(const std::string& title) const                              = 0;
+    virtual void OnSizeChange(const unsigned int& width, const unsigned int& height) const  = 0;
+    virtual void OnVSyncChange(const bool& is_enabled) const                                = 0;
+    virtual void OnUpdate() const                                                           = 0;
     
   private:
     std::unique_ptr<WindowProperties> properties_;
