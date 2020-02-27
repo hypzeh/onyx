@@ -24,14 +24,22 @@ namespace Onyx::Engine::System
 
 	void Application::OnClose(const WindowCloseEvent& event)
 	{
-		ONYX_LOG_TRACE("Window closed");
+		ONYX_LOG_TRACE(event.GetName());
 	}
 
 	void Application::OnResize(const WindowResizeEvent& event)
 	{
 		std::stringstream output;
-		output << "Window Resized\twidth: " << event.GetWidth() << "  height: " << event.GetHeight();
+		output << event.GetName() << "\twidth: " << event.GetWidth() << "  height: " << event.GetHeight();
 		ONYX_LOG_TRACE(output.str());
+	}
+
+	void Application::OnMouseMove(const MouseMoveEvent& event)
+	{
+		std::stringstream output;
+		output << event.GetName() << "\tx: " << event.GetPositionX() << "  y: " << event.GetPositionY();
+		ONYX_LOG_TRACE(output.str());
+
 	}
 
 	void Application::OnRun()
@@ -50,6 +58,10 @@ namespace Onyx::Engine::System
 
 		case EventType::WindowResize:
 			OnResize(dynamic_cast<const WindowResizeEvent&>(event));
+			break;
+
+		case EventType::MouseMove:
+			OnMouseMove(dynamic_cast<const MouseMoveEvent&>(event));
 			break;
 
 		default:

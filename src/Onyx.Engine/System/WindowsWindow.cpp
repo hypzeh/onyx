@@ -62,6 +62,13 @@ namespace Onyx::Engine::System
 			properties->Height	= height;
 			properties->DispatchEvent(event);
 		});
+
+		glfwSetCursorPosCallback(window_, [](auto window, double position_x, double position_y)
+		{
+			auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
+			auto event = MouseMoveEvent((float)position_x, (float)position_y);
+			properties->DispatchEvent(event);
+		});
 	}
 
 	void WindowsWindow::Shutdown()

@@ -8,5 +8,6 @@ namespace Onyx::Engine::System::Events
 		None					= 0,
 		WindowClose		= 1,
 		WindowResize	= 2,
+		MouseMove			= 3,
 	};
 }
