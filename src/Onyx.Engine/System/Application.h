@@ -1,6 +1,8 @@
 #pragma once
 #include "..\pch.h"
 
+using namespace Onyx::Engine::System::Events;
+
 namespace Onyx::Engine::System
 {
   class Application

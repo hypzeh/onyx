@@ -1,6 +1,6 @@
 #include "..\pch.h"
+#include "Events\WindowCloseEvent.h"
 #include "WindowsWindow.h"
-#include "WindowCloseEvent.h"
 
 namespace Onyx::Engine::System
 {
