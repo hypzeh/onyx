@@ -3,6 +3,6 @@
 
 int main()
 {
-	auto app = std::make_unique<App>();
-	app->Run();
+  auto app = std::make_unique<App>();
+  app->Run();
 }

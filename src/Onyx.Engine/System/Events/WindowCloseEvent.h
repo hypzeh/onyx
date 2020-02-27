@@ -3,12 +3,12 @@
 
 namespace Onyx::Engine::System::Events
 {
-	class WindowCloseEvent : public Event
-	{
-	public:
-		WindowCloseEvent() = default;
+  class WindowCloseEvent : public Event
+  {
+  public:
+    WindowCloseEvent() = default;
 
-		std::string GetName() const override;
-		EventType GetType() const override;
-	};
+    std::string GetName() const override;
+    EventType GetType() const override;
+  };
 }
