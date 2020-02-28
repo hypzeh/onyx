@@ -69,6 +69,13 @@ namespace Onyx::Engine::System
       auto event      = MouseMoveEvent((float)position_x, (float)position_y);
       properties->DispatchEvent(event);
     });
+
+    glfwSetMouseButtonCallback(window_, [](auto window, auto button, auto action, auto modifiers)
+    {
+      auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
+      auto event = MouseClickEvent(static_cast<MouseButtonType>(button));
+      properties->DispatchEvent(event);
+    });
   }
 
   void WindowsWindow::Shutdown()
