@@ -2,6 +2,7 @@
 
 namespace Onyx::Engine::Components
 {
-  Layer::Layer()
+  Layer::Layer(const std::string& name)
+    : name_(name)
   {}
 }

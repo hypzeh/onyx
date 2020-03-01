@@ -6,6 +6,9 @@ namespace Onyx::Engine::Components
   class Layer
   {
   public:
-    Layer();
+    Layer(const std::string& name);
+
+  private:
+    std::string name_;
   };
 }
