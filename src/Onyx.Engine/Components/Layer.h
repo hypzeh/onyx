@@ -7,6 +7,9 @@ namespace Onyx::Engine::Components
   {
   public:
     Layer(const std::string& name);
+    virtual ~Layer() = default;
+
+    const std::string& GetName() const;
 
   private:
     std::string name_;
