@@ -1,4 +1,5 @@
 #pragma once
+#include "..\pch.h"
 
 namespace Onyx::Engine::Components
 {
@@ -6,5 +7,9 @@ namespace Onyx::Engine::Components
   {
   public:
     LayerStack();
+    virtual ~LayerStack() = default;
+
+  private:
+    std::vector<const Layer*> layers_;
   };
 }
