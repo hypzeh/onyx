@@ -7,6 +7,8 @@ namespace Onyx::Engine::System
     ONYX_LOG_TRACE("Onyx Engine");
     window_ = Window::Create(WindowProperties());
     window_->OnEvent(std::bind(&Application::HandleEvent, this, std::placeholders::_1));
+
+    layers_ = std::make_unique<LayerStack>();
   }
 
   Application::~Application()
