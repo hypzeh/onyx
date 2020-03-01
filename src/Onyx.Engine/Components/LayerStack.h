@@ -10,6 +10,7 @@ namespace Onyx::Engine::Components
     virtual ~LayerStack() = default;
 
     void PushLayer(const Layer* layer);
+
   private:
     std::vector<const Layer*> layers_;
   };

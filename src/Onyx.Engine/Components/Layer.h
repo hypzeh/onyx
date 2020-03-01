@@ -10,6 +10,10 @@ namespace Onyx::Engine::Components
     virtual ~Layer() = default;
 
     const std::string& GetName() const;
+    void Update() const;
+
+  protected:
+    virtual void OnUpdate() const = 0;
 
   private:
     std::string name_;

@@ -10,4 +10,9 @@ namespace Onyx::Engine::Components
   {
     return name_;
   }
+
+  void Layer::Update() const
+  {
+    OnUpdate();
+  }
 }
