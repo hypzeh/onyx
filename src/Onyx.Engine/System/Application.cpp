@@ -7,12 +7,15 @@ namespace Onyx::Engine::System
     ONYX_LOG_TRACE("Onyx Engine");
     window_ = Window::Create(WindowProperties());
     window_->OnEvent(std::bind(&Application::HandleEvent, this, std::placeholders::_1));
-
-    layers_ = std::make_unique<LayerStack>();
   }
 
   Application::~Application()
   {}
+
+  void Application::PushLayer(Layer* layer)
+  {
+    layers_.push_back(layer);
+  }
 
   void Application::Run()
   {
@@ -21,6 +24,10 @@ namespace Onyx::Engine::System
     while (is_running_)
     {
       window_->Update();
+      for (auto layer : layers_)
+      {
+        layer->Update();
+      }
     }
   }
 
@@ -65,10 +72,11 @@ namespace Onyx::Engine::System
     case EventType::MouseMove:
       OnMouseMove(dynamic_cast<const MouseMoveEvent&>(event));
       break;
+    }
 
-    default:
-      ONYX_LOG_WARNING("Unknown event");
-      break;
+    for (auto layer : layers_)
+    {
+      layer->HandleEvent(event);
     }
   }
 }

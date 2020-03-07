@@ -11,7 +11,12 @@ namespace Onyx::Engine::Components
     return name_;
   }
 
-  void Layer::Update() const
+  void Layer::HandleEvent(const Event& event)
+  {
+    OnEvent(event);
+  }
+
+  void Layer::Update()
   {
     OnUpdate();
   }

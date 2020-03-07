@@ -1,4 +1,4 @@
-add_executable(Onyx.Sandbox Main.cpp App.cpp App.h)
+add_executable(Onyx.Sandbox Main.cpp App.cpp App.h MouseLayer.cpp MouseLayer.h)
 
 set_target_properties(Onyx.Sandbox PROPERTIES FOLDER src)
 
