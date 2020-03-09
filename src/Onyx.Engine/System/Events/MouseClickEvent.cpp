@@ -1,7 +1,7 @@
 #include "MouseClickEvent.h"
 
-Onyx::Engine::System::Events::MouseClickEvent::MouseClickEvent(MouseButtonType buttonType)
-  : buttonType_(buttonType)
+Onyx::Engine::System::Events::MouseClickEvent::MouseClickEvent(MouseButtonType type, MouseButtonAction action)
+  : buttonType_(type), buttonAction_(action)
 {}
 
 std::string Onyx::Engine::System::Events::MouseClickEvent::GetName() const
@@ -17,4 +17,9 @@ EventType Onyx::Engine::System::Events::MouseClickEvent::GetType() const
 MouseButtonType Onyx::Engine::System::Events::MouseClickEvent::GetButtonType() const
 {
   return buttonType_;
+}
+
+MouseButtonAction Onyx::Engine::System::Events::MouseClickEvent::GetButtonAction() const
+{
+  return buttonAction_;
 }

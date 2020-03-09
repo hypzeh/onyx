@@ -73,7 +73,7 @@ namespace Onyx::Engine::System
     glfwSetMouseButtonCallback(window_, [](auto window, auto button, auto action, auto modifiers)
     {
       auto properties = (WindowProperties*)glfwGetWindowUserPointer(window);
-      auto event = MouseClickEvent(static_cast<MouseButtonType>(button));
+      auto event = MouseClickEvent(static_cast<MouseButtonType>(button), static_cast<MouseButtonAction>(action));
       properties->DispatchEvent(event);
     });
   }

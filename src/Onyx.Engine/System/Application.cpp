@@ -60,8 +60,19 @@ namespace Onyx::Engine::System
       button = "unknown";
     }
 
+    std::string action;
+    switch (event.GetButtonAction())
+    {
+    case MouseButtonAction::Press:
+      action = "press";
+      break;
+    case MouseButtonAction::Release:
+      action = "release";
+      break;
+    }
+
     std::stringstream output;
-    output << event.GetName() << "\tbutton: " << button;
+    output << event.GetName() << "\tbutton: " << button << " action: " << action;
     ONYX_LOG_TRACE(output.str());
   }
 
