@@ -42,6 +42,29 @@ namespace Onyx::Engine::System
 
   }
 
+  void Application::OnMouseClick(const MouseClickEvent& event)
+  {
+    std::string button;
+    switch (event.GetButtonType())
+    {
+    case MouseButtonType::Left:
+      button = "left";
+      break;
+    case MouseButtonType::Right:
+      button = "right";
+      break;
+    case MouseButtonType::Middle:
+      button = "middle";
+      break;
+    default:
+      button = "unknown";
+    }
+
+    std::stringstream output;
+    output << event.GetName() << "\tbutton: " << button;
+    ONYX_LOG_TRACE(output.str());
+  }
+
   void Application::OnRun()
   {
     ONYX_LOG_TRACE("Application run");
@@ -62,6 +85,10 @@ namespace Onyx::Engine::System
 
     case EventType::MouseMove:
       OnMouseMove(dynamic_cast<const MouseMoveEvent&>(event));
+      break;
+
+    case EventType::MouseClick:
+      OnMouseClick(dynamic_cast<const MouseClickEvent&>(event));
       break;
 
     default:
