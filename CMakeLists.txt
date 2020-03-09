@@ -20,6 +20,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall")
 
 add_subdirectory(${ONYX_LIB_DIR}/glfw)
+include_directories(${ONYX_LIB_DIR}/glfw/include/)
 
 add_subdirectory(${ONYX_SRC_DIR}/Onyx.Engine)
 add_subdirectory(${ONYX_SRC_DIR}/Onyx.Sandbox)
