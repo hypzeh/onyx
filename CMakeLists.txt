@@ -19,6 +19,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall")
 
+include_directories(${ONYX_ROOT_DIR}/include)
+
 add_subdirectory(${ONYX_LIB_DIR}/glfw)
 include_directories(${ONYX_LIB_DIR}/glfw/include/)
 

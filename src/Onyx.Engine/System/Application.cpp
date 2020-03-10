@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "magic_enum.hpp"
 
 namespace Onyx::Engine::System
 {
@@ -44,35 +45,9 @@ namespace Onyx::Engine::System
 
   void Application::OnMouseClick(const MouseClickEvent& event)
   {
-    std::string button;
-    switch (event.GetButtonType())
-    {
-    case MouseButtonType::Left:
-      button = "left";
-      break;
-    case MouseButtonType::Right:
-      button = "right";
-      break;
-    case MouseButtonType::Middle:
-      button = "middle";
-      break;
-    default:
-      button = "unknown";
-    }
-
-    std::string action;
-    switch (event.GetButtonAction())
-    {
-    case MouseButtonAction::Press:
-      action = "press";
-      break;
-    case MouseButtonAction::Release:
-      action = "release";
-      break;
-    }
-
     std::stringstream output;
-    output << event.GetName() << "\tbutton: " << button << " action: " << action;
+    output << event.GetName() << "\tbutton: " << magic_enum::enum_name(event.GetButtonType()) 
+      << " action: " << magic_enum::enum_name(event.GetButtonAction());
     ONYX_LOG_TRACE(output.str());
   }
 
