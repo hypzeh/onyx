@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "magic_enum.hpp"
 
 namespace Onyx::Engine::System
 {
@@ -42,6 +43,14 @@ namespace Onyx::Engine::System
 
   }
 
+  void Application::OnMouseClick(const MouseClickEvent& event)
+  {
+    std::stringstream output;
+    output << event.GetName() << "\tbutton: " << magic_enum::enum_name(event.GetButtonType()) 
+      << " action: " << magic_enum::enum_name(event.GetButtonAction());
+    ONYX_LOG_TRACE(output.str());
+  }
+
   void Application::OnRun()
   {
     ONYX_LOG_TRACE("Application run");
@@ -62,6 +71,10 @@ namespace Onyx::Engine::System
 
     case EventType::MouseMove:
       OnMouseMove(dynamic_cast<const MouseMoveEvent&>(event));
+      break;
+
+    case EventType::MouseClick:
+      OnMouseClick(dynamic_cast<const MouseClickEvent&>(event));
       break;
 
     default:
