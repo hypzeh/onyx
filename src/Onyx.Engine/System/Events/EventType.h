@@ -9,5 +9,6 @@ namespace Onyx::Engine::System::Events
     WindowClose   = 1,
     WindowResize  = 2,
     MouseMove     = 3,
+    MouseClick    = 4
   };
 }
